@@ -33,3 +33,26 @@ public:
         }
     }
 };
+
+class bank_account_not_safe
+{
+private:
+    float balance;
+
+public:
+    bank_account_not_safe(float balance = 0) : balance(balance) {}
+    float get_balance()
+    {
+        return balance;
+    }
+    void withdraw(float amount)
+    {
+        if (amount > 0) // just in case
+            balance -= amount;
+    }
+    void deposit(float amount)
+    {
+        if (amount > 0) // just in case
+            balance += amount;
+    }
+};
