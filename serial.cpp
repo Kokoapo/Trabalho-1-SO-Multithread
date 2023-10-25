@@ -4,10 +4,15 @@
 using namespace std;
 
 int main() {
+    srand(1);
     bank_account contas[20];
     for(int i = 0; i < 10; i++) {
-        contas[rand()%20].deposit(rand()%500);
-        contas[rand()%20].withdraw(rand()%500);
+        int conta1 = rand()%20;
+        int conta2 = rand()%20;
+        int valor = rand()%500;
+        printf("R$%d de %d para %d\n", valor, conta2, conta1);
+        contas[conta1].deposit(valor);
+        contas[conta2].withdraw(valor);
         contas[rand()%20].get_balance();
     }
     
