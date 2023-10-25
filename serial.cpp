@@ -1,26 +1,16 @@
 #include "conta.hpp"
-#include <random>
-#include <fstream>
+#include <iostream>
+#include <unistd.h>
 using namespace std;
-
-int main() {
-    srand(1);
-    bank_account contas[10];
-    for(int i = 0; i < 100000; i++) {
-        int conta1 = rand()%10;
-        int conta2 = rand()%10;
-        int valor = rand()%500;
-        //printf("R$%d de %d para %d\n", valor, conta2, conta1);
-        contas[conta1].deposit(valor);
-        contas[conta2].withdraw(valor);
-        contas[rand()%10].get_balance();
-    }
-    
-    ofstream output;
-    output.open("resultado_serial.txt", ios::out);
-    for(int i = 0; i < 10; i++) {
-        output << contas[i].get_balance() << endl;
-    }
-
-    return 0;
-} 
+void do_a_lot_of_transfers(bank_account &c1, bank_account &c2)
+{
+    for (int i = 0; i < 1000000; i++)
+        transfer(c1, c2, 10);
+}
+int main()
+{
+    bank_account &c1 = create_safe_account(), &c2 = create_safe_account();
+    do_a_lot_of_transfers(c1, c2);
+    do_a_lot_of_transfers(c2, c1);
+    cout << "resultado: conta1=" << c1.get_balance() << "\nc2=" << c2.get_balance() << "\n";
+}
