@@ -2,14 +2,10 @@
 #include <iostream>
 #include <thread>
 #include <vector>
-#include <atomic>
 using namespace std;
-atomic<bool> start; // vamos iniciar todos os threads juntos, quero ver um data race.
+
 void do_a_lot_of_transfers(bank_account *c1, bank_account *c2)
 {
-    while (!start)
-    {
-    }
     for (int i = 0; i < 1000; i++)
         transfer(*c1, *c2, 10);
 }
@@ -21,10 +17,8 @@ void join_all(vector<thread *> &tvect)
 }
 void prepare_a_lot_of_transfers(vector<thread *> &tvect, bank_account &c1, bank_account &c2)
 {
-    start = false;
     for (int i = 0; i < 1000; i++)
         tvect.push_back(new thread(do_a_lot_of_transfers, &c1, &c2));
-    start = true;
 }
 int main()
 {
